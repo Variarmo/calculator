@@ -210,47 +210,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./jquery.inputmask.js"></script>
     <script src="./script.js"></script>
-    <script type="text/javascript">
-        /* динамческое формирование списка товаров*/
-        let PHP_REQUEST = <?php echo(json_encode($_REQUEST)) ?>;
-                //console.log("PHP_REQUEST", PHP_REQUEST);
-                if (PHP_REQUEST.PLACEMENT_OPTIONS) {PHP_REQUEST.PLACEMENT_OPTIONS = JSON.parse(PHP_REQUEST.PLACEMENT_OPTIONS)}
-
-                BX24.callMethod('placement.unbind', {PLACEMENT: "CRM_DEAL_DETAIL_TAB"}, function(result) {
-                    BX24.callMethod('placement.bind', {
-                        HANDLER: "https://calculator.goreally.ru/index.php",
-                        PLACEMENT: "CRM_DEAL_DETAIL_TAB",
-                        TITLE: "Калькулятор",
-                        DESCRIPTION: "Калькулятор"
-                    }, function(result) {
-                        console.log("result", result)
-                    })
-                });
-
-        $(document).on('click', '#make_order', function(){
-            BX24.callMethod("crm.deal.productrows.get", {id: PHP_REQUEST.PLACEMENT_OPTIONS.ID}, function(result) {
-                let productrows = result.answer.result;
-                $('.check__position').each(function(){
-                    let product_title = $(this).find('.check__position-name').html();
-                    let product_quantity = $(this).find('.check__position-qt').html();
-                    let product_total_price = $(this).find('.check__position-price').html();
-		    let product_price = parseFloat(product_total_price) / parseFloat(product_quantity);
-		    console.log(product_price);
-                    productrows.push(
-                            {
-                                'PRODUCT_NAME': product_title,
-                                'QUANTITY': product_quantity,
-                                'PRICE': product_price
-                            }
-                        );
-                });
-                console.log(productrows);
-                BX24.callMethod("crm.deal.productrows.set", {id: PHP_REQUEST.PLACEMENT_OPTIONS.ID, rows: productrows}, function(result) {
-                    console.log("productrows.set", result)
-                });
-                setTimeout(window.location.href = "https://pervyyreklamnyy.bitrix24.ru/crm/deal/details/" + PHP_REQUEST.PLACEMENT_OPTIONS.ID + '/', 5000);
-            });
-        });
-    </script>
+ 
     </body>
 </html>
