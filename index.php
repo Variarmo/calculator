@@ -205,10 +205,7 @@
                 </div>
             </div>
         </div>
-
-    <script src="//api.bitrix24.com/api/v1/"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="./jquery.inputmask.js"></script>
     <script src="./script.js"></script>
  
     </body>
